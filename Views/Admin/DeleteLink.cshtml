@@ -1,0 +1,37 @@
+﻿@model Link
+
+<div class="container justify-content-center" style="max-width: 500px;">
+    <div class="row mb-3">
+        <div class="col-8"><span class="h3">Launchpad - ASP.NET Core | MySQL </span><br><span id="lblExpire" class="text-warning" style="margin-left:10px"></span></div>
+        <div class="col-4 text-right"><a asp-controller="Login" asp-action="Logout"><input type="button" class="btn btn-sm btn-primary" value="Logout" /></a></div>
+    </div>
+    <form asp-controller="Admin" asp-action="DeleteLinkSubmit">
+        <div class="row mt-2">
+            <div class="col">
+                <h2>Delete Link</h2>
+                Are you sure you want to delete the following link?
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mt-2">
+                <div class="form-inline mb-3">
+                    <img src="https://www.google.com/s2/favicons?domain_url=@Model.href" alt="@Model.label" class="mr-2">
+                    @Model.label <span class="mx-3">|</span> @Model.href
+                </div>
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.linkId">
+                    <input type="submit" text="Submit" class="btn btn-warning" />
+                    <a asp-controller="Admin" asp-action="Index"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+                    <span class="text-warning" style="margin-left:5px;">@ViewData["feedback"]</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    <script>
+        startAutoLogout();
+    </script>
+}

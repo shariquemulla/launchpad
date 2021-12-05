@@ -1,0 +1,37 @@
+﻿@model LinkManager
+
+<div class="container">
+    <div class="row mb-3">
+        <span class="h3">Launchpad - ASP.NET Core | MySQL </span>
+    </div>
+    <div class="row">
+        @foreach (var category in Model.categories) {
+            <div class="col-md-3 col-sm-6 my-3">
+                <div class="mb-4">
+                    <span class="h5">@category.categoryName</span>
+                </div>
+                <div>
+                    @foreach (var link in Model.getLinksByCategoryId(true, category.categoryId)) {
+                        <div class="form-inline mt-1">
+                            <img src="https://www.google.com/s2/favicons?domain_url=@link.href" alt="@link.label">
+                            <a class="ml-2" href="@link.href" target="_blank">@link.label</a>
+                        </div>
+                    }
+                </div>
+
+                @if (Model.getLinksByCategoryId(true, category.categoryId).Count > 0) {
+                    <div class="text-lighst">----------------------</div>
+                }
+
+                <div>
+                    @foreach (var link in Model.getLinksByCategoryId(false, category.categoryId)) {
+                        <div class="form-inline mt-1">
+                            <img src="https://www.google.com/s2/favicons?domain_url=@link.href" alt="@link.label">
+                            <a class="ml-2" href="@link.href" target="_blank">@link.label</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

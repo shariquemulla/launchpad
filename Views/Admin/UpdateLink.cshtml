@@ -1,0 +1,58 @@
+﻿@model Link
+
+<div class="container justify-content-center" style="max-width: 500px;">
+    <div class="row mb-3">
+        <div class="col-8"><span class="h3">Launchpad - ASP.NET Core | MySQL </span><br><span id="lblExpire" class="text-warning" style="margin-left:10px"></span></div>
+        <div class="col-4 text-right"><a asp-controller="Login" asp-action="Logout"><input type="button" class="btn btn-sm btn-primary" value="Logout" /></a></div>
+    </div>
+    <form asp-controller="Admin" asp-action="UpdateLinkSubmit">
+        <div class="row mt-2">
+            <div class="col">
+                <h2>Edit Link</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col mt-2">
+                <input type="hidden" asp-for="@Model.linkId" value="@Model.linkId">
+                <div class="form-group">
+                    <label>Category:</label>
+                    <select class="btn btn-secondary text-left form-control" asp-items="ViewBag.selectList" asp-for="@Model.categoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label>Label:</label>
+                    <input type="text" asp-for="@Model.label" class="form-control" Maxlength="100" />
+                    <span asp-validation-for="@Model.label" class="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label>href:</label>
+                    <input type="text" asp-for="@Model.href" class="form-control" Maxlength="300" />
+                    <span asp-validation-for="@Model.href" class="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label>Pinned:</label><br>
+
+                    @if (Model.pinned) {
+                        <input id="pinCheckbox" type="checkbox" value="pinned" name="pinCheckbox" checked/>    
+                    } else {
+                        <input id="pinCheckbox" type="checkbox" value="pinned" name="pinCheckbox" />
+                    }
+
+                    <label for="pinCheckbox">Pin link to top</label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-warning" />
+                    @* <input type="submit" value="Cancel" class="btn btn-warning" asp-controller="Admin" asp-action="Index"/> *@
+                    <a asp-controller="Admin" asp-action="Index"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+                    <span class="text-warning" style="margin-left:5px;">@ViewData["feedback"]</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    <script>
+        startAutoLogout();
+    </script>
+}
